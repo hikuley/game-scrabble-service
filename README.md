@@ -8,8 +8,7 @@ Uygulamayı Çalıştırmak için;
 
 com.sahibinden.Main-> üzerinden çalıştırabilisiniz.
 
-Servislerin test edilmesi için postman linki: 
-Postman: https://www.getpostman.com/collections/cb0da443a1cd368c31cc
+Servislerin test edilmesi için postman linki: https://www.getpostman.com/collections/cb0da443a1cd368c31cc
 
 Nasıl Test Edilir:
 1. Postman üzerinden "createBoard" servisi çağrısı yapılır.
