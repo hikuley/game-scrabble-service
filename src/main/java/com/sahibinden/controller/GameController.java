@@ -55,6 +55,7 @@ public class GameController extends BaseController {
      * @param sequence
      * @return
      */
+
     @GET
     @Path("{id}/sequence/{sequence}")
     public Content getBoardContent(@PathParam("id") long id, @PathParam("sequence") int sequence) {
