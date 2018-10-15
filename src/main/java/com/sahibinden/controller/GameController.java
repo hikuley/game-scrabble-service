@@ -3,6 +3,8 @@ package com.sahibinden.controller;
 import com.sahibinden.domain.Board;
 import com.sahibinden.domain.Move;
 import com.sahibinden.domain.Word;
+import com.sahibinden.exception.GameException;
+import com.sahibinden.model.BaseResponse;
 import com.sahibinden.model.Content;
 import com.sahibinden.model.ResponseModel;
 import com.sahibinden.service.GameService;
@@ -14,7 +16,7 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 
-@Path("board")
+@Path("game")
 @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON})
 @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON})
 public class GameController extends BaseController {
@@ -22,16 +24,16 @@ public class GameController extends BaseController {
     @Inject
     private GameService gameService;
 
-    @PUT
-    @Path("{id}")
+    @GET
+    @Path("show/{id}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_HTML})
-    public void drawBoard(@PathParam("id") long id) {
+    public void showBoard(@PathParam("id") long id) {
         gameService.drawBoard(id);
     }
 
     @POST
-    public Long create(Board board) {
-        return gameService.createBoard(board);
+    public BaseResponse create(Board board) {
+        return createSaveEntityResponse(gameService.createBoard(board));
     }
 
     @POST
@@ -68,6 +70,14 @@ public class GameController extends BaseController {
     @Path("{id}")
     public Response setStatus(@PathParam("id") long id) {
         return gameService.setStatus(id);
+    }
+
+
+    @GET
+    @Path("test/")
+    @Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_HTML})
+    public void test() throws GameException {
+        throw new GameException("test");
     }
 
 

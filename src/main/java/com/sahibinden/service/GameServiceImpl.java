@@ -3,6 +3,7 @@ package com.sahibinden.service;
 import com.sahibinden.domain.Board;
 import com.sahibinden.domain.Move;
 import com.sahibinden.domain.Word;
+import com.sahibinden.exception.GameException;
 import com.sahibinden.model.Content;
 import com.sahibinden.model.Letter;
 import com.sahibinden.model.ResponseModel;
@@ -55,14 +56,14 @@ public class GameServiceImpl implements GameService {
      * @return
      */
 
-    public ResponseModel play(long id, List<Move> moves) throws Exception {
+    public ResponseModel play(long id, List<Move> moves) throws GameException {
         Board board = boardRepository.findById(id);
 
         if (!board.getActive()) {
 
             logger.info("Board is not active.");
 
-            return new ResponseModel("Board is not active.");
+            throw new GameException("Board is not active.");
         }
 
         Integer direction = validateDirection(moves);
@@ -71,7 +72,7 @@ public class GameServiceImpl implements GameService {
 
             logger.info("Wrong direction");
 
-            return new ResponseModel("Wrong direction");
+            throw new GameException("Wrong direction");
         }
 
         List<Move> existingMoves = moveRepository.getExistingMoves(board);
@@ -82,7 +83,7 @@ public class GameServiceImpl implements GameService {
 
             logger.info("Invalid start point");
 
-            return new ResponseModel("Invalid start point");
+            throw new GameException("Invalid start point");
         }
 
         String wordValue;
@@ -90,7 +91,7 @@ public class GameServiceImpl implements GameService {
         try {
             wordValue = checkIsConsecutiveAndGetWord(existingMoves, moves, direction);
         } catch (Exception e) {
-            return new ResponseModel(e.getMessage());
+            throw new GameException(e.getMessage());
         }
 
         HashMap<String, Integer> dictionary = getDictionary();
@@ -99,7 +100,7 @@ public class GameServiceImpl implements GameService {
 
             logger.info("Word " + wordValue + " does not exist in dictionary.");
 
-            return new ResponseModel("Word " + wordValue + " does not exist in dictionary.");
+            throw new GameException("Word " + wordValue + " does not exist in dictionary.");
         }
 
         int totalPoint = 0;
@@ -128,6 +129,8 @@ public class GameServiceImpl implements GameService {
         word.setPoint(totalPoint);
         word.setValue(wordValue);
         wordRepository.create(word);
+
+
         return new ResponseModel("Your move");
 
     }
@@ -193,7 +196,7 @@ public class GameServiceImpl implements GameService {
      * @return
      * @throws Exception
      */
-    private boolean validateStartPoint(List<Move> existingMoves, List<Move> moves) throws Exception {
+    private boolean validateStartPoint(List<Move> existingMoves, List<Move> moves) throws GameException {
 
         Boolean isFirstMove = existingMoves.size() < 1;
 
@@ -203,7 +206,7 @@ public class GameServiceImpl implements GameService {
 
                 logger.error("Out of bounds");
 
-                throw new Exception("Out of bounds");
+                throw new GameException("Out of bounds");
             }
 
 
