@@ -16,3 +16,9 @@ Servislerin test edilmesi için postman linki: https://www.getpostman.com/collec
 2. Postman üzerinden "play1" servisi çağrısı yapılır ve ilk hamle yapılır.
 3. Postman üzerinden "drawBoard" servisi çağrısı yapılır ve console üzerinden boardın görsel halini görebilirsiniz.
 4. Tekrardan hamle yapmak için  postman üzerinden "play2" servisi çağrılır.  
+
+### Kullanılan Teknolojiler:
+1. Embeded Jetty server
+2. Hibernate
+3. RestEasy
+4. H2 Database
