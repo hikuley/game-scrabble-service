@@ -6,14 +6,12 @@ import com.sahibinden.domain.Word;
 import com.sahibinden.exception.GameException;
 import com.sahibinden.model.Content;
 import com.sahibinden.model.Letter;
-import com.sahibinden.model.ResponseModel;
 import com.sahibinden.repository.BoardRepository;
 import com.sahibinden.repository.MoveRepository;
 import com.sahibinden.repository.WordRepository;
 import org.apache.log4j.Logger;
 
 import javax.inject.Inject;
-import javax.ws.rs.core.Response;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -56,7 +54,7 @@ public class GameServiceImpl implements GameService {
      * @return
      */
 
-    public ResponseModel play(long id, List<Move> moves) throws GameException {
+    public Boolean play(long id, List<Move> moves) throws GameException {
         Board board = boardRepository.findById(id);
 
         if (!board.getActive()) {
@@ -105,11 +103,7 @@ public class GameServiceImpl implements GameService {
 
         int totalPoint = 0;
 
-        try {
-            totalPoint = calculatePointAndSetBoard(moves, board);
-        } catch (Exception e) {
-            return new ResponseModel(e.getMessage());
-        }
+        totalPoint = calculatePointAndSetBoard(moves, board);
 
         board.setSequence(board.getSequence() + 1);
 
@@ -131,8 +125,7 @@ public class GameServiceImpl implements GameService {
         wordRepository.create(word);
 
 
-        return new ResponseModel("Your move");
-
+        return true;
     }
 
 
@@ -481,7 +474,7 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public Response setStatus(long id) {
+    public Board setStatus(long id) {
 
         Board board = boardRepository.findById(id);
 
@@ -489,7 +482,7 @@ public class GameServiceImpl implements GameService {
 
         boardRepository.update(board);
 
-        return Response.ok().build();
+        return board;
     }
 
     private String getWord(List<Move> moves) {

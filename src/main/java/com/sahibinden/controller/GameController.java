@@ -2,17 +2,13 @@ package com.sahibinden.controller;
 
 import com.sahibinden.domain.Board;
 import com.sahibinden.domain.Move;
-import com.sahibinden.domain.Word;
 import com.sahibinden.exception.GameException;
 import com.sahibinden.model.BaseResponse;
-import com.sahibinden.model.Content;
-import com.sahibinden.model.ResponseModel;
 import com.sahibinden.service.GameService;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import java.util.List;
 
 
@@ -38,14 +34,14 @@ public class GameController extends BaseController {
 
     @POST
     @Path("{id}")
-    public ResponseModel play(@PathParam("id") long id, List<Move> moves) throws Exception {
-        return gameService.play(id, moves);
+    public BaseResponse play(@PathParam("id") long id, List<Move> moves) throws Exception {
+        return okResponse(gameService.play(id, moves));
     }
 
     @GET
     @Path("{id}")
-    public List<Word> getWords(@PathParam("id") long id) {
-        return gameService.getWords(id);
+    public BaseResponse getWords(@PathParam("id") long id) {
+        return getOfResponse(gameService.getWords(id));
     }
 
     /**
@@ -60,16 +56,16 @@ public class GameController extends BaseController {
 
     @GET
     @Path("{id}/sequence/{sequence}")
-    public Content getBoardContent(@PathParam("id") long id, @PathParam("sequence") int sequence) {
-        return gameService.getBoardContent(id, sequence);
+    public BaseResponse getBoardContent(@PathParam("id") long id, @PathParam("sequence") int sequence) {
+        return getOfResponse(gameService.getBoardContent(id, sequence));
 
     }
 
 
     @DELETE
     @Path("{id}")
-    public Response setStatus(@PathParam("id") long id) {
-        return gameService.setStatus(id);
+    public BaseResponse setStatus(@PathParam("id") long id) {
+        return updatedEntityResponse(gameService.setStatus(id));
     }
 
 

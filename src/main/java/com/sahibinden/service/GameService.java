@@ -13,7 +13,7 @@ public interface GameService {
 
     Long createBoard(Board board);
 
-    ResponseModel play(long id, List<Move> moves) throws Exception;
+    Boolean play(long id, List<Move> moves) throws Exception;
 
     void drawBoard(Long id);
 
@@ -21,6 +21,6 @@ public interface GameService {
 
     Content getBoardContent(long id, int sequence);
 
-    Response setStatus(long id);
+    Board setStatus(long id);
 
 }

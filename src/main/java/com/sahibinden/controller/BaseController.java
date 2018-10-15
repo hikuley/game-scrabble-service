@@ -33,4 +33,12 @@ public class BaseController {
                 .build();
     }
 
+
+    protected BaseResponse okResponse(Boolean status) {
+        return new BaseResponse.Builder()
+                .withSuccess(status)
+                .build();
+    }
+
+
 }
