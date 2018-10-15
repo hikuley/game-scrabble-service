@@ -1,16 +1,17 @@
-Game Scrabble Service
+## Game Scrabble Service
 
-Gereksinimler;
+### Gereksinimler;
 1. Maven
 2. Java 8
 
-Uygulamayı Çalıştırmak için;
+### Uygulamayı Çalıştırmak için;
 
-com.sahibinden.Main-> üzerinden çalıştırabilisiniz.
+com.sahibinden.Main-> üzerinden "main" metodu ile çalıştırabilisiniz.
 
+### Test
 Servislerin test edilmesi için postman linki: https://www.getpostman.com/collections/cb0da443a1cd368c31cc
 
-Nasıl Test Edilir:
+### Nasıl Test Edilir:
 1. Postman üzerinden "createBoard" servisi çağrısı yapılır.
 2. Postman üzerinden "play1" servisi çağrısı yapılır ve ilk hamle yapılır.
 3. Postman üzerinden "drawBoard" servisi çağrısı yapılır ve console üzerinden boardın görsel halini görebilirsiniz.
