@@ -69,12 +69,4 @@ public class GameController extends BaseController {
     }
 
 
-    @GET
-    @Path("test/")
-    @Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_HTML})
-    public void test() throws GameException {
-        throw new GameException("test");
-    }
-
-
 }
