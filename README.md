@@ -5,7 +5,7 @@
 2. Installed Java version 8
 
 ### How to start application;
-you can run com.sahibinden.Main->  "main" metot.
+You can run in com.sahibinden.Main-> class and need to call "main" metot.
 
 ### Test
 it's postman link for rest services test : https://www.getpostman.com/collections/cb0da443a1cd368c31cc
